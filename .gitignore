@@ -1,7 +1,6 @@
 prompt_testing
 .env
-inkwell.ppt
-inkwell_copy.pptm
-inkwell.pdf
+
+presentations
 
 __pycache__

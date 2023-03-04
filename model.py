@@ -2,25 +2,27 @@ import os
 
 import openai
 
-email = """Generate the perfect email to [recipient] that effectively conveys [purpose of email] using [language/tone]. The email should be structured in a way that is appropriate and effective for the specific situation, taking into account the context and relationship with the recipient.
+# email = """Generate the perfect email to [recipient] that effectively conveys [purpose of email] using [language/tone]. The email should be structured in a way that is appropriate and effective for the specific situation, taking into account the context and relationship with the recipient.
 
-###
-Extracting the necessary information from this context: {context}
-###
-Perfect Email:"""
+# ###
+# Extracting the necessary information from this context: {context}
+# ###
+# Perfect Email:"""
 
 def set_openai_key(key):
     """Sets OpenAI key."""
     openai.api_key = key
 
 class GeneralModel:
-    def __init__(self):
-        print("Model Initialization--->")
+    def __init__(self, generator_type, prompt):
+        self.generator_type = generator_type
+        self.prompt = prompt
+        print("{} Initialization--->".format(self.generator_type))
         # set_openai_key(os.getenv("OPENAI_API_KEY"))
 
     def query(self, prompt, myKwargs={}):
         """
-        Wrapper for teh API to save the prompt and the result
+        Wrapper for the API to save the prompt and the result
         """
 
         # Arguments to send to the API
@@ -48,5 +50,5 @@ class GeneralModel:
         """
         # Setting the OpenAI API key got from the OpenAI dashboard
         set_openai_key(api_key)
-        output = self.query(email.format(context=input))
+        output = self.query(self.prompt.format(context=input))
         return output

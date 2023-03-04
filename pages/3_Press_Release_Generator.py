@@ -1,15 +1,20 @@
 import os
+from decouple import config
 
 import streamlit as st
 from model import GeneralModel
 
+st.set_page_config(page_title="Inkwell - Press Release Generator", page_icon="🖋️")
+
+press_release = """ {context} """
 
 def app():
 
     # Creating an object of prediction service
-    pred = GeneralModel()
+    pred = GeneralModel(generator_type="Press Release Generator", prompt=press_release)
 
-    api_key = st.sidebar.text_input("APIkey", type="password")
+    # api_key = st.sidebar.text_input("APIkey", type="password")
+    api_key = config("OPENAI_API_KEY")
     # Using the streamlit cache
     @st.cache_data
     def process_prompt(input):
@@ -19,12 +24,12 @@ def app():
     if api_key:
 
         # Setting up the Title
-        st.title("Email Generator")
+        st.title("Press Release Generator")
 
         # st.write("---")
 
         input = st.text_area(
-            "Input email creation email in here. Remember to be very descriptive.",
+            "Input Press Release creation details in here. Remember to be very descriptive.",
             max_chars=750,
             height=100,
         )
@@ -35,3 +40,5 @@ def app():
                 st.markdown(report_text)
     else:
         st.error("🔑 Please enter API Key")
+
+app()
