@@ -34,7 +34,7 @@ def app():
         # st.write("---")
 
         input = st.text_area(
-            "Input email creation email in here. Remember to be very descriptive.",
+            "Input email creation details in here. Remember to be very descriptive.",
             max_chars=750,
             height=100,
         )
